@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/react-ejemplo/static/css/main.e3e36694.css",
-    "main.js": "/react-ejemplo/static/js/main.dae363f0.js",
-    "static/js/787.cd8d43d4.chunk.js": "/react-ejemplo/static/js/787.cd8d43d4.chunk.js",
-    "index.html": "/react-ejemplo/index.html",
-    "main.e3e36694.css.map": "/react-ejemplo/static/css/main.e3e36694.css.map",
-    "main.dae363f0.js.map": "/react-ejemplo/static/js/main.dae363f0.js.map",
-    "787.cd8d43d4.chunk.js.map": "/react-ejemplo/static/js/787.cd8d43d4.chunk.js.map"
+    "main.css": "/ALTIRIA/static/css/main.e3e36694.css",
+    "main.js": "/ALTIRIA/static/js/main.f0e67882.js",
+    "static/js/787.cd8d43d4.chunk.js": "/ALTIRIA/static/js/787.cd8d43d4.chunk.js",
+    "index.html": "/ALTIRIA/index.html",
+    "main.e3e36694.css.map": "/ALTIRIA/static/css/main.e3e36694.css.map",
+    "main.f0e67882.js.map": "/ALTIRIA/static/js/main.f0e67882.js.map",
+    "787.cd8d43d4.chunk.js.map": "/ALTIRIA/static/js/787.cd8d43d4.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.e3e36694.css",
-    "static/js/main.dae363f0.js"
+    "static/js/main.f0e67882.js"
   ]
 }
