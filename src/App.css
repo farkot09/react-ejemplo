@@ -36,3 +36,27 @@
     transform: rotate(360deg);
   }
 }
+
+.menu{
+  border: 0.3em double #80B6C3;
+  background-color:rgb(7 71 166);
+  margin-bottom:0.2em;
+  height:3em;
+  display:block;
+  /*background-image:url(../../Imagenes/fondo_menu.jpg);*/
+  }
+
+  .menu p{
+    text-decoration:none;
+    font-size:1.1em;
+    font-weight:bold;
+    color:#FFFFFF;
+    display:block;
+    padding-right:0.7em;
+    padding-left:0.7em;
+    padding-top:0.5em;
+    }
+
+
+          
+      
