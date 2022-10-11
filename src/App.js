@@ -19,7 +19,7 @@ function App() {
         </Row>
         <Container className="fondo ">
           <Routes>
-            <Route exact path="/" element={<Reservas />} />
+            <Route exact path="/" element={<Inicio />} />
             <Route exact path="/asignaciones" element={<Asignaciones />} />
             <Route exact path="/reservas" element={<Reservas />} />
           </Routes>
