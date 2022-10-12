@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Badge } from "react-bootstrap";
-import { GrDocumentPdf } from "react-icons/gr";
+import { Badge, Button, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { GoAlert } from "react-icons/go";
+import { SiAdblock } from "react-icons/si";
 import {
   FaRegWindowClose,
   FaRegEye,
   FaPlus,
   FaFolderOpen,
+  FaSearch,
+  FaCheckCircle,
+  FaFilePdf,
 } from "react-icons/fa";
 
 import { obtenerReservas } from "../utils/Reservas";
@@ -53,6 +57,7 @@ function Reservas() {
                     <Badge
                       onClick={() => {
                         setMostrarDetalles(!mostrarDetalles);
+                        setMostrarDocumentacion(false);
                       }}
                       bg="warning"
                     >
@@ -108,6 +113,13 @@ function Reservas() {
                   <td>-</td>
                 </tr>
               ))}
+          {mostrarDetalles ? (
+            <tr>
+              <td colSpan={7}></td>
+            </tr>
+          ) : (
+            ""
+          )}
 
           {mostrarDetalles ? (
             <tr className="fw-bold fst-italic">
@@ -176,6 +188,26 @@ function Reservas() {
                   </tr>
                 ))
             : ""}
+          {mostrarDocumentacion ? (
+            <tr>
+              <td colSpan={7}></td>
+            </tr>
+          ) : (
+            ""
+          )}
+          {mostrarDocumentacion ? (
+            <tr className="fw-bold fst-italic">
+              <td>#</td>
+              <td>Tipo de Documento</td>
+              <td>Descarga</td>
+              <td>Estado</td>
+              <td>Observacion</td>
+              <td>-</td>
+              <td>-</td>
+            </tr>
+          ) : (
+            ""
+          )}
 
           {mostrarDocumentacion
             ? listadoDocumentacion.map((item, index) => (
@@ -186,29 +218,47 @@ function Reservas() {
                     <small>{item.tipo_documento}</small>{" "}
                   </td>
                   <td>
-                    <Badge bg="danger">
-                      <GrDocumentPdf size={20} />
-                      Descargar
-                    </Badge>{" "}
+                    <Badge bg="primary" size="lg">
+                      <FaFilePdf size={20} />
+                    </Badge>
                   </td>
                   <td>
                     {parseInt(item.estado) === 0 ? (
-                      <Badge bg="warning">Pendiente</Badge>
+                      <Badge bg="warning">
+                        <GoAlert /> Pendiente
+                      </Badge>
                     ) : (
                       ""
                     )}
                     {parseInt(item.estado) === 1 ? (
-                      <Badge bg="success">Aprobado</Badge>
+                      <Badge bg="success">
+                        <FaCheckCircle /> Aprobado
+                      </Badge>
                     ) : (
                       ""
                     )}
                     {parseInt(item.estado) === 2 ? (
-                      <Badge bg="danger">Rechazado</Badge>
+                      <Badge bg="danger">
+                        <SiAdblock /> Rechazado
+                      </Badge>
                     ) : (
                       ""
                     )}
                   </td>
-                  <td>{item.observacion}</td>
+                  <td>
+                    <OverlayTrigger
+                      placement="right"
+                      overlay={
+                        <Tooltip id={"tooltip-right"}>
+                          <strong>{item.observacion}</strong>.
+                        </Tooltip>
+                      }
+                    >
+                      <Button variant="secondary">
+                        <FaSearch />
+                      </Button>
+                    </OverlayTrigger>
+                  </td>
 
                   <td>-</td>
                   <td>-</td>

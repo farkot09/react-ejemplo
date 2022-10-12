@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  
 }
 
 .App-logo {
@@ -55,6 +56,15 @@
     padding-right:0.7em;
     padding-left:0.7em;
     padding-top:0.5em;
+    }
+    .fondo{
+      
+      min-height: 300px;
+      
+      
+    }
+    .colorFondo{
+      background-color:#00173C;
     }
 
 

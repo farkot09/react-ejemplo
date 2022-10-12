@@ -20,13 +20,13 @@ function NavbarComponent() {
           {" "}
           <div className="d-flex justify-content-end">
             <small>
-              Esta registrado como: germanrojas | Cambiar Contraseña | Salir
+              Esta registrado como: germanrojas | Notificaciones(3) | Salir
             </small>
           </div>
         </Col>
       </Row>
-      <Row>
-        <div className="menu"><p>Asignaciones</p></div>
+      <Row >
+        <div className="menu colorFondo"><p>Reservas</p></div>
       </Row>
     </Container>
   );
