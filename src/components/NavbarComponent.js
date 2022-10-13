@@ -1,6 +1,19 @@
+import { useEffect, useState } from "react";
 import { Row, Container, Navbar, Col } from "react-bootstrap";
+import {useLocation } from "react-router-dom";
+
 
 function NavbarComponent() {
+  const location = useLocation();
+  const [tituloConvertido, settituloConvertido] = useState(location.pathname)
+  const convertirTitulo = (titulo) =>{
+    const newTitulo = titulo.slice(1)
+    settituloConvertido(newTitulo.toUpperCase())
+  }
+  useEffect(() => {
+    convertirTitulo(tituloConvertido)
+  }, [])
+  
   return (
     <Container fluid>
       <Row>
@@ -20,13 +33,13 @@ function NavbarComponent() {
           {" "}
           <div className="d-flex justify-content-end">
             <small>
-              Esta registrado como: germanrojas | Notificaciones(3) | Salir
+              Esta registrado como: viktorgrajales | Notificaciones(3) | Salir
             </small>
           </div>
         </Col>
       </Row>
       <Row >
-        <div className="menu colorFondo"><p>Reservas</p></div>
+        <div className="menu colorFondo"><p>{tituloConvertido || "INICIO"}</p></div>
       </Row>
     </Container>
   );

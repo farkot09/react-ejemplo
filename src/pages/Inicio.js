@@ -1,9 +1,15 @@
 import React from 'react'
+import Spinner from 'react-bootstrap/Spinner';
 
 
 function Inicio() {
   return (
-    <div><h1>Ejemplo</h1></div>
+    <div className='d-flex justify-content-center'>
+
+        <Spinner animation="border" variant="primary" />
+
+
+    </div>
   )
 }
 

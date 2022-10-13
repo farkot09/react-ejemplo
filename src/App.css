@@ -67,6 +67,15 @@
       background-color:#00173C;
     }
 
+    .letraPequena{
+      font-size: 8px;
+    }
+
+    hr.solid {
+      border-top: 3px solid #bbb;
+      
+    }
+
 
           
       

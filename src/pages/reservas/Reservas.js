@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Badge, Button, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { Badge, Button, OverlayTrigger, Tooltip,Spinner } from "react-bootstrap";
 import { GoAlert } from "react-icons/go";
 import { SiAdblock } from "react-icons/si";
 import {
@@ -11,10 +11,10 @@ import {
   FaCheckCircle,
   FaFilePdf,
 } from "react-icons/fa";
-
-import { obtenerReservas } from "../utils/Reservas";
-import { obtenerAsignaciones } from "../utils/Asignaciones";
+import { obtenerReservas } from "../../utils/Reservas";
+import { obtenerAsignaciones } from "../../utils/Asignaciones";
 import Table from "react-bootstrap/Table";
+import { Link } from "react-router-dom";
 
 function Reservas() {
   const [reservas, setReservas] = useState([]);
@@ -22,20 +22,37 @@ function Reservas() {
   const [asignaciones, setAsignaciones] = useState([]);
   const [mostrarDetalles, setMostrarDetalles] = useState(false);
   const [mostrarDocumentacion, setMostrarDocumentacion] = useState(false);
+  const [cargando, setCargando] = useState(true);
   const [idParamostrarDocumentacion, setIdParaMostrarDocumentacion] =
     useState("");
   const [listadoDocumentacion, setListadoDocumentacion] = useState([]);
 
   useEffect(() => {
+    
     obtenerReservas().then((data) => {
       setReservas(data);
+      setCargando(false)
+      
     });
   }, []);
 
   return (
-    <div className="d-flex text-muted">
-      <Table bordered={true} striped hover>
+    <div className="d-flex justify-content-center">
+      <Spinner
+        animation="border"
+        variant="primary"
+        className={!cargando ? "visually-hidden" : ""}
+      />      
+      <Table
+        bordered={true}
+        striped
+        hover
+        className={cargando ? "visually-hidden" : ""}
+      >
         <thead>
+          <tr>
+            <td colSpan={7}> <Link to="/crearreserva"> Nueva reserva+ </Link> </td>
+          </tr>
           <tr>
             <th>
               <input type="checkbox" />
@@ -67,11 +84,13 @@ function Reservas() {
                   <td>{item.numero_reserva}</td>
                   <td>{item.destino}</td>
                   <td>{item.vassel}</td>
-                  <td>{new Date(item.fecha_cierre).toLocaleDateString()}</td>
+                  <td>{item.fecha_cierre}</td>
                   <td>
-                    <Badge bg="success">
-                      <FaPlus />
-                    </Badge>{" "}
+                    <Link to={`/asignarcliente/${item.id}/${item.numero_reserva}`}>
+                      <Badge bg="success">
+                        <FaPlus />
+                      </Badge>
+                    </Link>
                   </td>
                   <td>-</td>
                 </tr>
@@ -104,18 +123,22 @@ function Reservas() {
                   <td>{item.numero_reserva}</td>
                   <td>{item.destino}</td>
                   <td>{item.vassel}</td>
-                  <td>{new Date(item.fecha_cierre).toLocaleDateString()}</td>
+                  <td>{item.fecha_cierre.slice(0,10)}</td>
                   <td>
-                    <Badge bg="success">
-                      <FaPlus />
-                    </Badge>{" "}
+                  <Link to={`/asignarcliente/${item.id}/${item.numero_reserva}`}>
+                      <Badge bg="success">
+                        <FaPlus />
+                      </Badge>{" "}
+                    </Link>
                   </td>
-                  <td>-</td>
+                  <td></td>
                 </tr>
               ))}
           {mostrarDetalles ? (
             <tr>
-              <td colSpan={7}></td>
+              <td colSpan={7}>
+                <hr class="solid" />
+              </td>
             </tr>
           ) : (
             ""
@@ -190,7 +213,9 @@ function Reservas() {
             : ""}
           {mostrarDocumentacion ? (
             <tr>
-              <td colSpan={7}></td>
+              <td colSpan={7}>
+                <hr class="solid" />
+              </td>
             </tr>
           ) : (
             ""
@@ -218,9 +243,14 @@ function Reservas() {
                     <small>{item.tipo_documento}</small>{" "}
                   </td>
                   <td>
-                    <Badge bg="primary" size="lg">
-                      <FaFilePdf size={20} />
-                    </Badge>
+                    <FaFilePdf size={20} color={"#DC3545"} className="me-1" />
+
+                    <a
+                      className="letraPequena"
+                      href={`https://nexus-api-2022.herokuapp.com${item.url}`}
+                    >
+                      {item.tipo_documento}.pdf
+                    </a>
                   </td>
                   <td>
                     {parseInt(item.estado) === 0 ? (
