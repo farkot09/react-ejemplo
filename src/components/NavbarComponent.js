@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { Row, Container, Navbar, Col } from "react-bootstrap";
-import {useLocation } from "react-router-dom";
+import { Row, Container, Navbar, Col,Dropdown  } from "react-bootstrap";
+import {useLocation,Link } from "react-router-dom";
+
 
 
 function NavbarComponent() {
@@ -39,8 +40,21 @@ function NavbarComponent() {
         </Col>
       </Row>
       <Row >
-        <div className="menu colorFondo"><p>{tituloConvertido || "INICIO"}</p></div>
-      </Row>
+        <div className="menu colorFondo">
+        <Dropdown>
+      <Dropdown.Toggle variant="primary"  id="dropdown-basic">
+        Menu
+      </Dropdown.Toggle>
+
+      <Dropdown.Menu>
+        <Dropdown.Item ><Link to="/reservas"> Reservas </Link></Dropdown.Item>
+        <Dropdown.Item><Link to="/crearcliente"> Crear Cliente </Link></Dropdown.Item>        
+        <Dropdown.Item><Link to="/subirdocumentos"> Subir Documentos </Link></Dropdown.Item>        
+      </Dropdown.Menu>
+    </Dropdown>
+
+        </div>
+      </Row>      
     </Container>
   );
 }

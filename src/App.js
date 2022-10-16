@@ -9,6 +9,10 @@ import Inicio from "./pages/Inicio";
 import NavbarComponent from "./components/NavbarComponent";
 import Container from "react-bootstrap/Container";
 import AsignarCliente from "./pages/asignaciones/AsignarCliente";
+import CrearCliente from "./pages/clientes/CrearCliente";
+import SubirDocumentos from "./pages/clientes/SubirDocumentos"
+
+
 
 function App() {
   return (
@@ -23,6 +27,8 @@ function App() {
             <Route exact path="/asignarcliente/:id/:reserva" element={<AsignarCliente />} />
             <Route exact path="/reservas" element={<Reservas />} />
             <Route exact path="/crearreserva" element={<CrearReserva />} />
+            <Route exact path="/crearcliente" element={<CrearCliente />} />
+            <Route exact path="/subirdocumentos" element={<SubirDocumentos />} />
           </Routes>
         </Container>
       </Container>

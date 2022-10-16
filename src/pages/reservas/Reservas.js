@@ -1,20 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { Badge, Button, OverlayTrigger, Tooltip,Spinner } from "react-bootstrap";
-import { GoAlert } from "react-icons/go";
-import { SiAdblock } from "react-icons/si";
+import { Badge, Spinner } from "react-bootstrap";
 import {
   FaRegWindowClose,
   FaRegEye,
   FaPlus,
   FaFolderOpen,
-  FaSearch,
-  FaCheckCircle,
-  FaFilePdf,
 } from "react-icons/fa";
 import { obtenerReservas } from "../../utils/Reservas";
 import { obtenerAsignaciones } from "../../utils/Asignaciones";
 import Table from "react-bootstrap/Table";
 import { Link } from "react-router-dom";
+import MostrarDocumentacion from "../../components/MostrarDocumentacion";
 
 function Reservas() {
   const [reservas, setReservas] = useState([]);
@@ -28,11 +24,9 @@ function Reservas() {
   const [listadoDocumentacion, setListadoDocumentacion] = useState([]);
 
   useEffect(() => {
-    
     obtenerReservas().then((data) => {
       setReservas(data);
-      setCargando(false)
-      
+      setCargando(false);
     });
   }, []);
 
@@ -42,7 +36,7 @@ function Reservas() {
         animation="border"
         variant="primary"
         className={!cargando ? "visually-hidden" : ""}
-      />      
+      />
       <Table
         bordered={true}
         striped
@@ -51,7 +45,10 @@ function Reservas() {
       >
         <thead>
           <tr>
-            <td colSpan={7}> <Link to="/crearreserva"> Nueva reserva+ </Link> </td>
+            <td colSpan={7}>
+              {" "}
+              <Link to="/crearreserva"> Nueva reserva+ </Link>{" "}
+            </td>
           </tr>
           <tr>
             <th>
@@ -86,7 +83,9 @@ function Reservas() {
                   <td>{item.vassel}</td>
                   <td>{item.fecha_cierre}</td>
                   <td>
-                    <Link to={`/asignarcliente/${item.id}/${item.numero_reserva}`}>
+                    <Link
+                      to={`/asignarcliente/${item.id}/${item.numero_reserva}`}
+                    >
                       <Badge bg="success">
                         <FaPlus />
                       </Badge>
@@ -123,9 +122,11 @@ function Reservas() {
                   <td>{item.numero_reserva}</td>
                   <td>{item.destino}</td>
                   <td>{item.vassel}</td>
-                  <td>{item.fecha_cierre.slice(0,10)}</td>
+                  <td>{item.fecha_cierre.slice(0, 10)}</td>
                   <td>
-                  <Link to={`/asignarcliente/${item.id}/${item.numero_reserva}`}>
+                    <Link
+                      to={`/asignarcliente/${item.id}/${item.numero_reserva}`}
+                    >
                       <Badge bg="success">
                         <FaPlus />
                       </Badge>{" "}
@@ -148,6 +149,7 @@ function Reservas() {
             <tr className="fw-bold fst-italic">
               <td>#</td>
               <td>Cliente</td>
+              <td>Codigo</td>
               <td>Peso</td>
               <td>Cantidad</td>
               <td>Cubicaje</td>
@@ -162,7 +164,10 @@ function Reservas() {
             ? asignaciones.map((item, index) => (
                 <tr>
                   <td>{index + 1}</td>
-                  <td>{item.id_cliente[0].razon_social}</td>
+                  <td>{item.id_cliente[0].razon_social} </td>
+                  <td>
+                    <small>{item.id}</small>{" "}
+                  </td>
                   <td>{item.peso} Kilos</td>
                   <td>
                     {item.cantidad} {item.tipo_empaque}
@@ -177,7 +182,7 @@ function Reservas() {
                       }}
                     >
                       <FaFolderOpen />
-                    </Badge>{" "}
+                    </Badge>
                   </td>
                   <td>-</td>
                 </tr>
@@ -191,6 +196,11 @@ function Reservas() {
                   <tr>
                     <td></td>
                     <td>{data.id_cliente[0].razon_social}</td>
+                    <td>
+                      <td>
+                        <small>{data.id}</small>{" "}
+                      </td>
+                    </td>
                     <td>{data.peso} Kilos</td>
                     <td>
                       {data.cantidad} {data.tipo_empaque}
@@ -227,7 +237,7 @@ function Reservas() {
               <td>Descarga</td>
               <td>Estado</td>
               <td>Observacion</td>
-              <td>-</td>
+              <td>Acciones</td>
               <td>-</td>
             </tr>
           ) : (
@@ -236,65 +246,14 @@ function Reservas() {
 
           {mostrarDocumentacion
             ? listadoDocumentacion.map((item, index) => (
-                <tr>
-                  <td>{index + 1}</td>
-                  <td>
-                    {" "}
-                    <small>{item.tipo_documento}</small>{" "}
-                  </td>
-                  <td>
-                    <FaFilePdf size={20} color={"#DC3545"} className="me-1" />
-
-                    <a
-                      className="letraPequena"
-                      href={`https://nexus-api-2022.herokuapp.com${item.url}`}
-                    >
-                      {item.tipo_documento}.pdf
-                    </a>
-                  </td>
-                  <td>
-                    {parseInt(item.estado) === 0 ? (
-                      <Badge bg="warning">
-                        <GoAlert /> Pendiente
-                      </Badge>
-                    ) : (
-                      ""
-                    )}
-                    {parseInt(item.estado) === 1 ? (
-                      <Badge bg="success">
-                        <FaCheckCircle /> Aprobado
-                      </Badge>
-                    ) : (
-                      ""
-                    )}
-                    {parseInt(item.estado) === 2 ? (
-                      <Badge bg="danger">
-                        <SiAdblock /> Rechazado
-                      </Badge>
-                    ) : (
-                      ""
-                    )}
-                  </td>
-                  <td>
-                    <OverlayTrigger
-                      placement="right"
-                      overlay={
-                        <Tooltip id={"tooltip-right"}>
-                          <strong>{item.observacion}</strong>.
-                        </Tooltip>
-                      }
-                    >
-                      <Button variant="secondary">
-                        <FaSearch />
-                      </Button>
-                    </OverlayTrigger>
-                  </td>
-
-                  <td>-</td>
-                  <td>-</td>
-                </tr>
+                <MostrarDocumentacion
+                  item={item}
+                  indice={index}
+                  key={index}
+                  tipo="usuario"
+                />
               ))
-            : "false"}
+            : "falses"}
         </tbody>
       </Table>
     </div>
