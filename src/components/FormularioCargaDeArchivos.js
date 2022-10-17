@@ -20,10 +20,11 @@ function FormularioCargaDeArchivos({ datax }) {
     estado: 0,
   });
   useEffect(() => {
+    console.log(datax.id);
     obtenerAsignacionParaDocumentacion(datax).then((d) => {
       setListaDocs(d.documentacion);
     });
-  }, [listaDocs]);
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -126,9 +127,10 @@ function FormularioCargaDeArchivos({ datax }) {
                 ? listaDocs.map((item, index) => (
                     <MostrarDocumentacion
                       item={item}
-                      indice={index + 1}
+                      indice={index}
                       key={index}
                       tipo="cliente"
+                      id={datax.id}
                     />
                   ))
                 : ""}

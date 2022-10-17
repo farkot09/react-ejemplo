@@ -251,6 +251,7 @@ function Reservas() {
                   indice={index}
                   key={index}
                   tipo="usuario"
+                  id={idParamostrarDocumentacion}
                 />
               ))
             : "falses"}

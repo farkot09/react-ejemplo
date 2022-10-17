@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from 'react';
 import { Badge, Button, OverlayTrigger, Tooltip,Dropdown  } from "react-bootstrap";
 import { GoAlert } from "react-icons/go";
 import { SiAdblock } from "react-icons/si";
@@ -7,9 +7,21 @@ import {
   FaCheckCircle,
   FaFilePdf
 } from "react-icons/fa";
+import ModalCambiarEstados from './ModalCambiarEstados';
 
-function MostrarDocumentacion({item,indice,tipo }) {    
-    
+
+
+function MostrarDocumentacion({id,item,indice,tipo }) {    
+  const [mostarModal, setMostarModal] = useState({estado:false, accion:"cambiar"})
+  const [dataModal, setDataModal] = useState({
+    id:id,
+    tipo_documento:"",
+    estado:0,
+    observacion:""
+  })
+  const handleCambios = () => {
+    setMostarModal(false)
+  }
   return (
     <tr>
     <td>{indice+1}</td>
@@ -69,14 +81,37 @@ function MostrarDocumentacion({item,indice,tipo }) {
       <Dropdown.Toggle variant="secondary" id="dropdown-basic">        
       </Dropdown.Toggle>
       <Dropdown.Menu>
-        <Dropdown.Item href="#/action-1">Eliminar</Dropdown.Item>
-        <Dropdown.Item href="#/action-2">Cambiar Estado </Dropdown.Item>
+        <Dropdown.Item onClick={()=>{
+          setMostarModal({accion:"eliminar",estado:true})
+          setDataModal({
+            ...dataModal,
+            tipo_documento:item.tipo_documento,
+            estado:item.estado,
+            observacion:item.observacion
+          })
+          }} >Eliminar</Dropdown.Item>
+          {
+            tipo === "cliente" ? "" 
+            :
+            <Dropdown.Item onClick={()=>{
+              setMostarModal({accion:"cambiar",estado:true})
+              setDataModal({
+                ...dataModal,
+                tipo_documento:item.tipo_documento,
+                estado:item.estado,
+                observacion:item.observacion
+              })
+              }} >Cambiar Estado </Dropdown.Item>
+          }
+        
         
       </Dropdown.Menu>
     </Dropdown>
  
     </td>
-    <td>-</td>
+    <td>
+      {mostarModal.estado ? <ModalCambiarEstados accion={mostarModal.accion} data={dataModal} handleCambios={handleCambios} /> : "" }
+      </td>
   </tr>
   )
 }

@@ -1,13 +1,13 @@
 import React from 'react'
-import Spinner from 'react-bootstrap/Spinner';
-
 
 function Inicio() {
   return (
-    <div className='d-flex justify-content-center'>
+    <div className='text-center'>
+        <div className='h2' >Bienvenido a NEXUS</div>
+        <div>Version - Beta 0.7</div>
+        <div>Version Preliminar (Sin funcion de Carga de archivos y Alertas por Email)
 
-        <Spinner animation="border" variant="primary" />
-
+        </div>
 
     </div>
   )
